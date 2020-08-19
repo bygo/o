@@ -18,9 +18,9 @@ var CmdNew = &cmd.Command{
 }
 
 var replaces = map[string]string{
-	"DummyProject":     name.String(),
-	"DummyGoVersion":   strings.TrimLeft(runtime.Version(), "go"),
-	"DummyLureVersion": "0.0.2",
+	"DummyProject":    "",
+	"DummyGoVersion":  strings.TrimLeft(runtime.Version(), "go"),
+	"DummyORCVersion": "0.0.2",
 }
 
 func init() {
@@ -35,6 +35,7 @@ func Run(c *cmd.Command, args []string) {
 
 	name.Set(args[0])
 	project := name.String()
+	replaces["DummyProject"] = project
 	_, err := os.Stat(project)
 	if err == nil || os.IsExist(err) {
 		log.Fatal(fmt.Sprintf("Folder '%s' already exists", project))
