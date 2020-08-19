@@ -6,6 +6,6 @@ module DummyProject
 go DummyGoVersion
 
 require (
-	github.com/temporaries/orc DummyORCVersion
+	github.com/temporaries/orc latest
 )
 `
