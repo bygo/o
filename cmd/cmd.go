@@ -3,8 +3,6 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	_ "github.com/temporaries/o/cmd/make"
-	_ "github.com/temporaries/o/cmd/new"
 	"os"
 )
 

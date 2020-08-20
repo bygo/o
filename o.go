@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/temporaries/o/cmd"
+	_ "github.com/temporaries/o/cmd/make"
+	_ "github.com/temporaries/o/cmd/new"
 )
 
 func main() {

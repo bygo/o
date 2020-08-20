@@ -33,7 +33,6 @@ func Run(c *cmd.Command, args []string) {
 	replaces["DummyName"] = schemaName
 
 	log.Print("Creating...")
-
 	mkdir("schema", schemaName)
 	writeFile(schemaStub, "schema", schemaName, schemaName+".go")
 	log.Print("Successfully Created!")
