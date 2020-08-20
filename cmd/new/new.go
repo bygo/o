@@ -55,7 +55,7 @@ func Run(c *cmd.Command, args []string) {
 	util.WriteFile(confAllStub, projectName, "config", "conf.go")
 	util.WriteFile(confDBStub, projectName, "config", "db.go")
 	util.WriteFile(cn, projectName, "config", "language", "cn.go")
-	util.WriteFile(modStub, "go.mod")
+	util.WriteFile(modStub, projectName, "go.mod")
 
 	log.Print("Successfully Created!")
 }
