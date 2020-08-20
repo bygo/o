@@ -43,8 +43,23 @@ var CN = map[string]string{
 	"Mobile":    "手机",
 	"Status":    "状态",
 	"Amount":    "数额",
+	"Avatar":    "头像",
 	"CreatedAt": "创建时间",
 	"UpdatedAt": "更新时间",
 	"DeletedAt": "删除时间",
 }
 `
+
+var CN = map[string]string{
+	"ID":        "ID",
+	"Name":      "名字",
+	"Title":     "标题",
+	"Bio":       "简介",
+	"Mobile":    "手机",
+	"Status":    "状态",
+	"Amount":    "数额",
+	"Avatar":    "头像",
+	"CreatedAt": "创建时间",
+	"UpdatedAt": "更新时间",
+	"DeletedAt": "删除时间",
+}

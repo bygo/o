@@ -24,14 +24,14 @@ func Run(c *cmd.Command, args []string) {
 		log.Fatal("Please enter the schema name")
 	}
 
-	name.Set(args[0])
-	schemaName := str.CamelToSnake(name.String())
-	structName := str.SnakeToBigCamel(schemaName)
-	replaces["DummyPackageName"] = schemaName
-	replaces["DummyStructName"] = structName
+	for _, name := range args {
+		schemaName := str.CamelToSnake(name)
+		structName := str.SnakeToBigCamel(schemaName)
+		replaces["DummyPackageName"] = schemaName
+		replaces["DummyStructName"] = structName
 
-	schemaStub = file.Replace(schemaStub, replaces)
-	file.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
-
-	log.Print("Successfully Created!")
+		schemaStub = file.Replace(schemaStub, replaces)
+		file.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
+		log.Print(name + " Created!")
+	}
 }
