@@ -2,7 +2,8 @@ package make
 
 import (
 	"github.com/temporaries/o/cmd"
-	"github.com/temporaries/o/util"
+	"github.com/temporaries/o/util/file"
+	"github.com/temporaries/o/util/str"
 	"log"
 )
 
@@ -25,13 +26,11 @@ func Run(c *cmd.Command, args []string) {
 
 	name.Set(args[0])
 	schemaName := name.String()
-	replaces["DummyPackageName"] = schemaName
-	replaces["DummyStructName"] = util.SnakeToCamel(schemaName)
+	replaces["DummyPackageName"] = str.CamelToSnake(schemaName)
+	replaces["DummyStructName"] = str.SnakeToBigCamel(schemaName)
 
-	log.Print("Creating...")
-
-	schemaStub = util.Replace(schemaStub, replaces)
-	util.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
+	schemaStub = file.Replace(schemaStub, replaces)
+	file.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
 
 	log.Print("Successfully Created!")
 }

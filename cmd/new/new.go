@@ -2,7 +2,7 @@ package new
 
 import (
 	"github.com/temporaries/o/cmd"
-	"github.com/temporaries/o/util"
+	"github.com/temporaries/o/util/file"
 	"log"
 	"runtime"
 	"strings"
@@ -36,26 +36,24 @@ func Run(c *cmd.Command, args []string) {
 	replaces["DummyProject"] = projectName
 
 	//project exists
-	util.CheckExist(projectName)
-
-	log.Print("Creating...")
+	file.CheckExist(projectName)
 
 	//replace
-	mainStub = util.Replace(mainStub, replaces)
-	bootStub = util.Replace(bootStub, replaces)
-	confAllStub = util.Replace(confAllStub, replaces)
-	confDBStub = util.Replace(confDBStub, replaces)
-	cn = util.Replace(cn, replaces)
-	modStub = util.Replace(modStub, replaces)
+	mainStub = file.Replace(mainStub, replaces)
+	bootStub = file.Replace(bootStub, replaces)
+	confAllStub = file.Replace(confAllStub, replaces)
+	confDBStub = file.Replace(confDBStub, replaces)
+	cn = file.Replace(cn, replaces)
+	modStub = file.Replace(modStub, replaces)
 
 	//write
-	util.MKdir(projectName, "schema")
-	util.WriteFile(mainStub, projectName, "main.go")
-	util.WriteFile(bootStub, projectName, "boot", "boot.go")
-	util.WriteFile(confAllStub, projectName, "config", "conf.go")
-	util.WriteFile(confDBStub, projectName, "config", "db.go")
-	util.WriteFile(cn, projectName, "config", "language", "cn.go")
-	util.WriteFile(modStub, projectName, "go.mod")
+	file.MKdir(projectName, "schema")
+	file.WriteFile(mainStub, projectName, "main.go")
+	file.WriteFile(bootStub, projectName, "boot", "boot.go")
+	file.WriteFile(confAllStub, projectName, "config", "conf.go")
+	file.WriteFile(confDBStub, projectName, "config", "db.go")
+	file.WriteFile(cn, projectName, "config", "language", "cn.go")
+	file.WriteFile(modStub, projectName, "go.mod")
 
 	log.Print("Successfully Created!")
 }
