@@ -25,9 +25,10 @@ func Run(c *cmd.Command, args []string) {
 	}
 
 	name.Set(args[0])
-	schemaName := name.String()
-	replaces["DummyPackageName"] = str.CamelToSnake(schemaName)
-	replaces["DummyStructName"] = str.SnakeToBigCamel(schemaName)
+	schemaName := str.CamelToSnake(name.String())
+	packageName := str.SnakeToBigCamel(schemaName)
+	replaces["DummyPackageName"] = packageName
+	replaces["DummyStructName"] = schemaName
 
 	schemaStub = file.Replace(schemaStub, replaces)
 	file.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
