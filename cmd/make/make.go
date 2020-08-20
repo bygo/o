@@ -4,8 +4,8 @@ import (
 	"github.com/temporaries/o/cmd"
 	"github.com/temporaries/orc/util/file"
 	"github.com/temporaries/orc/util/str"
-
 	"log"
+	"path/filepath"
 )
 
 var name cmd.Value
@@ -30,9 +30,11 @@ func Run(c *cmd.Command, args []string) {
 		structName := str.SnakeToBigCamel(schemaName)
 		replaces["DummyPackageName"] = schemaName
 		replaces["DummyStructName"] = structName
-
-		schema := str.ReplaceMap(schemaStub, replaces)
-		file.WriteFile(schema, "schema", schemaName, "schema.go")
-		log.Print(name + " Created!")
+		filename := filepath.Join("schema", schemaName, "schema.go")
+		if !file.IsExist(filename) {
+			schema := str.ReplaceMap(schemaStub, replaces)
+			file.WriteFile(schema, "schema", schemaName, "schema.go")
+			log.Print(name + " Created!")
+		}
 	}
 }

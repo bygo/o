@@ -6,6 +6,8 @@ import (
 	"github.com/temporaries/orc/util/file"
 	"github.com/temporaries/orc/util/str"
 	"log"
+	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 )
@@ -51,13 +53,18 @@ func Run(c *cmd.Command, args []string) {
 	modStub = str.ReplaceMap(modStub, replaces)
 
 	//write
-	file.MKdir(projectName, "schema")
-	file.WriteFile(mainStub, projectName, "main.go")
-	file.WriteFile(bootStub, projectName, "boot", "boot.go")
-	file.WriteFile(confAllStub, projectName, "config", "conf.go")
-	file.WriteFile(confDBStub, projectName, "config", "db.go")
-	file.WriteFile(cn, projectName, "config", "language", "cn.go")
-	file.WriteFile(modStub, projectName, "go.mod")
+	schemaDir := filepath.Join(projectName, "schema")
+	err := os.MkdirAll(schemaDir, 0755)
+	if err != nil {
+		panic(err)
+	}
+
+	file.NewFileIfNotExist(mainStub, projectName, "main.go")
+	file.NewFileIfNotExist(bootStub, projectName, "boot", "boot.go")
+	file.NewFileIfNotExist(confAllStub, projectName, "config", "conf.go")
+	file.NewFileIfNotExist(confDBStub, projectName, "config", "db.go")
+	file.NewFileIfNotExist(cn, projectName, "config", "language", "cn.go")
+	file.NewFileIfNotExist(modStub, projectName, "go.mod")
 
 	log.Print("Successfully Created!")
 }
