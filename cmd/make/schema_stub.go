@@ -1,10 +1,10 @@
 package make
 
-var schemaStub = `package DummyName
+var schemaStub = `package DummyPackageName
 
 import "time"
 
-type DummyName struct {
+type DummyStructName struct {
 	ID        int
 
 	CreatedAt time.Time

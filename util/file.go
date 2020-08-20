@@ -37,3 +37,12 @@ func CheckExist(dir string) {
 		log.Fatal(fmt.Sprintf("Folder '%s' already exists", dir))
 	}
 }
+
+func SnakeToCamel(name string) string {
+	words := strings.Split(name, "_")
+	for i, w := range words {
+		words[i] = strings.ToUpper(w[:1]) + w[1:]
+	}
+	s := strings.Join(words, "")
+	return s
+}

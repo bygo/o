@@ -25,7 +25,8 @@ func Run(c *cmd.Command, args []string) {
 
 	name.Set(args[0])
 	schemaName := name.String()
-	replaces["DummyName"] = schemaName
+	replaces["DummyPackageName"] = schemaName
+	replaces["DummyStructName"] = util.SnakeToCamel(schemaName)
 
 	log.Print("Creating...")
 
