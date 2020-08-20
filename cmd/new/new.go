@@ -1,11 +1,9 @@
 package new
 
 import (
-	"fmt"
 	"github.com/temporaries/o/cmd"
 	"github.com/temporaries/o/util"
 	"log"
-	"os"
 	"runtime"
 	"strings"
 )
@@ -38,10 +36,7 @@ func Run(c *cmd.Command, args []string) {
 	replaces["DummyProject"] = projectName
 
 	//project exists
-	_, err := os.Stat(projectName)
-	if err == nil || os.IsExist(err) {
-		log.Fatal(fmt.Sprintf("Folder '%s' already exists", projectName))
-	}
+	util.CheckExist(projectName)
 
 	log.Print("Creating...")
 
