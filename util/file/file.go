@@ -1,12 +1,9 @@
 package file
 
 import (
-	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 func MKdir(paths ...string) {
@@ -24,16 +21,7 @@ func WriteFile(content string, paths ...string) {
 	ioutil.WriteFile(filepath.Join(paths...), []byte(content), 0755)
 }
 
-func Replace(content string, replaces map[string]string) string {
-	for old, new_ := range replaces {
-		content = strings.Replace(content, old, new_, -1)
-	}
-	return content
-}
-
-func CheckExist(dir string) {
+func IsExist(dir string) bool {
 	_, err := os.Stat(dir)
-	if err == nil || os.IsExist(err) {
-		log.Fatal(fmt.Sprintf("Folder '%s' already exists", dir))
-	}
+	return err == nil || os.IsExist(err)
 }

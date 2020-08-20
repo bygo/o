@@ -3,7 +3,8 @@ package make
 import (
 	"github.com/temporaries/o/cmd"
 	"github.com/temporaries/o/util/file"
-	"github.com/temporaries/o/util/str"
+	"github.com/temporaries/orc/util/str"
+
 	"log"
 )
 
@@ -30,7 +31,7 @@ func Run(c *cmd.Command, args []string) {
 		replaces["DummyPackageName"] = schemaName
 		replaces["DummyStructName"] = structName
 
-		schema := file.Replace(schemaStub, replaces)
+		schema := str.ReplaceMap(schemaStub, replaces)
 		file.WriteFile(schema, "schema", schemaName, "schema.go")
 		log.Print(name + " Created!")
 	}

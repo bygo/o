@@ -1,14 +1,16 @@
 package new
 
 import (
+	"fmt"
 	"github.com/temporaries/o/cmd"
-	"github.com/temporaries/o/util/file"
+	"github.com/temporaries/orc/util/file"
+	"github.com/temporaries/orc/util/str"
 	"log"
 	"runtime"
 	"strings"
 )
 
-var name cmd.Value
+//var name cmd.Value
 
 var CmdNew = &cmd.Command{
 	Run: Run,
@@ -31,20 +33,22 @@ func Run(c *cmd.Command, args []string) {
 	}
 
 	//params
-	name.Set(args[0])
-	projectName := name.String()
+	//name.Set(args[0])
+	projectName := args[0]
 	replaces["DummyProject"] = projectName
 
 	//project exists
-	file.CheckExist(projectName)
+	if file.IsExist(projectName) {
+		log.Fatal(fmt.Sprintf("Folder '%s' already exists", projectName))
+	}
 
 	//replace
-	mainStub = file.Replace(mainStub, replaces)
-	bootStub = file.Replace(bootStub, replaces)
-	confAllStub = file.Replace(confAllStub, replaces)
-	confDBStub = file.Replace(confDBStub, replaces)
-	cn = file.Replace(cn, replaces)
-	modStub = file.Replace(modStub, replaces)
+	mainStub = str.ReplaceMap(mainStub, replaces)
+	bootStub = str.ReplaceMap(bootStub, replaces)
+	confAllStub = str.ReplaceMap(confAllStub, replaces)
+	confDBStub = str.ReplaceMap(confDBStub, replaces)
+	cn = str.ReplaceMap(cn, replaces)
+	modStub = str.ReplaceMap(modStub, replaces)
 
 	//write
 	file.MKdir(projectName, "schema")
