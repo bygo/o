@@ -2,11 +2,8 @@ package make
 
 import (
 	"github.com/temporaries/o/cmd"
-	"io/ioutil"
+	"github.com/temporaries/o/util"
 	"log"
-	"os"
-	"path/filepath"
-	"strings"
 )
 
 var name cmd.Value
@@ -15,9 +12,7 @@ var CmdMake = &cmd.Command{
 	Run: Run,
 }
 
-var replaces = map[string]string{
-	"DummyName": "",
-}
+var replaces = map[string]string{}
 
 func init() {
 	cmd.Commands["make"] = CmdMake
@@ -33,26 +28,9 @@ func Run(c *cmd.Command, args []string) {
 	replaces["DummyName"] = schemaName
 
 	log.Print("Creating...")
-	mkdir("schema", schemaName)
-	writeFile(schemaStub, "schema", schemaName, schemaName+".go")
+
+	schemaStub = util.Replace(schemaStub, replaces)
+	util.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
+
 	log.Print("Successfully Created!")
-}
-
-func mkdir(paths ...string) {
-	err := os.Mkdir(filepath.Join(append([]string{name.String()}, paths...)...), 0755)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func writeFile(content string, path ...string) {
-	for old, new_ := range replaces {
-		content = strings.Replace(content, old, new_, -1)
-	}
-
-	paths := append([]string{name.String()}, path...)
-
-	filename := filepath.Join(paths...)
-
-	ioutil.WriteFile(filename, []byte(content), 0755)
 }

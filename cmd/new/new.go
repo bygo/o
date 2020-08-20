@@ -3,10 +3,9 @@ package new
 import (
 	"fmt"
 	"github.com/temporaries/o/cmd"
-	"io/ioutil"
+	"github.com/temporaries/o/util"
 	"log"
 	"os"
-	"path/filepath"
 	"runtime"
 	"strings"
 )
@@ -33,47 +32,35 @@ func Run(c *cmd.Command, args []string) {
 		log.Fatal("Please enter the project name")
 	}
 
+	//params
 	name.Set(args[0])
-	project := name.String()
-	replaces["DummyProject"] = project
-	_, err := os.Stat(project)
+	projectName := name.String()
+	replaces["DummyProject"] = projectName
+
+	//project exists
+	_, err := os.Stat(projectName)
 	if err == nil || os.IsExist(err) {
-		log.Fatal(fmt.Sprintf("Folder '%s' already exists", project))
+		log.Fatal(fmt.Sprintf("Folder '%s' already exists", projectName))
 	}
 
 	log.Print("Creating...")
 
-	mkdir()
-	mkdir("boot")
-	mkdir("schema")
-	mkdir("config")
-	mkdir("config", "language")
+	//replace
+	mainStub = util.Replace(mainStub, replaces)
+	bootStub = util.Replace(bootStub, replaces)
+	confAllStub = util.Replace(confAllStub, replaces)
+	confDBStub = util.Replace(confDBStub, replaces)
+	cn = util.Replace(cn, replaces)
+	modStub = util.Replace(modStub, replaces)
 
-	writeFile(mainStub, "main.go")
-	writeFile(bootStub, "boot", "boot.go")
-	writeFile(confAllStub, "config", "conf.go")
-	writeFile(confDBStub, "config", "db.go")
-	writeFile(cn, "config", "language", "cn.go")
-	writeFile(modStub, "go.mod")
+	//write
+	util.MKdir(projectName, "schema")
+	util.WriteFile(mainStub, projectName, "main.go")
+	util.WriteFile(bootStub, projectName, "boot", "boot.go")
+	util.WriteFile(confAllStub, projectName, "config", "conf.go")
+	util.WriteFile(confDBStub, projectName, "config", "db.go")
+	util.WriteFile(cn, projectName, "config", "language", "cn.go")
+	util.WriteFile(modStub, "go.mod")
 
 	log.Print("Successfully Created!")
-}
-
-func mkdir(paths ...string) {
-	err := os.Mkdir(filepath.Join(append([]string{name.String()}, paths...)...), 0755)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func writeFile(content string, path ...string) {
-	for old, new_ := range replaces {
-		content = strings.Replace(content, old, new_, -1)
-	}
-
-	paths := append([]string{name.String()}, path...)
-
-	filename := filepath.Join(paths...)
-
-	ioutil.WriteFile(filename, []byte(content), 0755)
 }
