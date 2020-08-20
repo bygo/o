@@ -30,8 +30,8 @@ func Run(c *cmd.Command, args []string) {
 		replaces["DummyPackageName"] = schemaName
 		replaces["DummyStructName"] = structName
 
-		schemaStub = file.Replace(schemaStub, replaces)
-		file.WriteFile(schemaStub, "schema", schemaName, schemaName+".go")
+		schema := file.Replace(schemaStub, replaces)
+		file.WriteFile(schema, "schema", schemaName, schemaName+".go")
 		log.Print(name + " Created!")
 	}
 }
