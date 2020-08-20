@@ -2,7 +2,7 @@ package make
 
 import (
 	"github.com/temporaries/o/cmd"
-	"github.com/temporaries/o/util/file"
+	"github.com/temporaries/orc/util/file"
 	"github.com/temporaries/orc/util/str"
 
 	"log"
