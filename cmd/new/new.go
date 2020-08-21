@@ -59,12 +59,12 @@ func Run(c *cmd.Command, args []string) {
 		panic(err)
 	}
 
-	file.NewFileIfNotExist(mainStub, projectName, "main.go")
-	file.NewFileIfNotExist(bootStub, projectName, "boot", "boot.go")
-	file.NewFileIfNotExist(confAllStub, projectName, "config", "conf.go")
-	file.NewFileIfNotExist(confDBStub, projectName, "config", "db.go")
-	file.NewFileIfNotExist(cn, projectName, "config", "language", "cn.go")
-	file.NewFileIfNotExist(modStub, projectName, "go.mod")
+	file.WriteFileIfNotExist(filepath.Join(projectName, "main.go"), []byte(mainStub))
+	file.WriteFileIfNotExist(filepath.Join(projectName, "boot", "boot.go"), []byte(bootStub))
+	file.WriteFileIfNotExist(filepath.Join(projectName, "config", "conf.go"), []byte(confAllStub))
+	file.WriteFileIfNotExist(filepath.Join(projectName, "config", "db.go"), []byte(confDBStub))
+	file.WriteFileIfNotExist(filepath.Join(projectName, "config", "language", "cn.go"), []byte(cn))
+	file.WriteFileIfNotExist(filepath.Join(projectName, "go.mod"), []byte(modStub))
 
 	log.Print("Successfully Created!")
 }

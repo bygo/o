@@ -33,7 +33,10 @@ func Run(c *cmd.Command, args []string) {
 		filename := filepath.Join("schema", schemaName, "schema.go")
 		if !file.IsExist(filename) {
 			schema := str.ReplaceMap(schemaStub, replaces)
-			file.NewFileIfNotExist(schema, "schema", schemaName, "schema.go")
+			err := file.WriteFileIfNotExist(filepath.Join("schema", schemaName, "schema.go"), []byte(schema))
+			if err != nil {
+				panic(err)
+			}
 			log.Print(name + " Created!")
 		}
 	}
