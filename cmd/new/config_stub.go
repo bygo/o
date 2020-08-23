@@ -2,7 +2,7 @@ package new
 
 var confAllStub = `package config
 
-import "github.com/temporaries/orc/conf"
+import "github.com/bygo/orc/conf"
 
 var Config = conf.All{
 	DB: db,
@@ -12,7 +12,7 @@ var Config = conf.All{
 var confDBStub = `package config
 
 import (
-	"github.com/temporaries/orc/conf"
+	"github.com/bygo/orc/conf"
 	"DummyProject/config/language"
 )
 

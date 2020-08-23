@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/temporaries/o/cmd"
-	_ "github.com/temporaries/o/cmd/make"
-	_ "github.com/temporaries/o/cmd/new"
+	"github.com/bygo/o/cmd"
+	_ "github.com/bygo/o/cmd/make"
+	_ "github.com/bygo/o/cmd/new"
 )
 
 func main() {

@@ -2,9 +2,9 @@ package new
 
 import (
 	"fmt"
-	"github.com/temporaries/o/cmd"
-	"github.com/temporaries/orc/util/file"
-	"github.com/temporaries/orc/util/str"
+	"github.com/bygo/o/cmd"
+	"github.com/bygo/orc/util/file"
+	"github.com/bygo/orc/util/str"
 	"log"
 	"os"
 	"path/filepath"

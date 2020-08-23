@@ -3,9 +3,9 @@ package new
 var bootStub = `package boot
 
 import (
-	"github.com/temporaries/orc/app"
-	"github.com/temporaries/orc/conf"
-	"github.com/temporaries/orc/schema"
+	"github.com/bygo/orc/app"
+	"github.com/bygo/orc/conf"
+	"github.com/bygo/orc/schema"
 	"DummyProject/config"
 )
 
